@@ -76,6 +76,11 @@ public class TurretScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isClicked)
         {
             ChangeTurretColor();
+            isClicked = true; // Set isClicked to true to prevent further color changes until the mouse is released.
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isClicked = false; // Reset isClicked when the mouse button is released.
         }
     }
 
@@ -96,7 +101,6 @@ public class TurretScript : MonoBehaviour
         Color newColor = RandomTurretColor();
         turretRenderer.material.color = newColor;
         turretColor = newColor;
-        isClicked = true;
     }
 
     Color RandomTurretColor()
