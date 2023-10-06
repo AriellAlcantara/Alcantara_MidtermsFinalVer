@@ -4,13 +4,13 @@ public class BulletScript : MonoBehaviour
 {
     private Transform target;
     private Color bulletColor; // Store the bullet's color
-    
+
     public float speed = 70f;
     public GameObject impactEffect;
 
     void Update()
     {
-        if (target == null) 
+        if (target == null)
         {
             Destroy(gameObject);
             return;
@@ -18,7 +18,7 @@ public class BulletScript : MonoBehaviour
 
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
-        
+
         if (dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
@@ -26,9 +26,12 @@ public class BulletScript : MonoBehaviour
         }
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+
+        // Update the bullet's color continuously
+        GetComponent<Renderer>().material.color = bulletColor;
     }
 
-    void HitTarget() 
+    void HitTarget()
     {
         GameObject effectsIns = Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectsIns, 2f);
@@ -55,9 +58,6 @@ public class BulletScript : MonoBehaviour
     public void SetColor(Color color)
     {
         bulletColor = color;
-
-        // Update the bullet's color via the Renderer component
-        GetComponent<Renderer>().material.color = bulletColor;
     }
 
     public Color GetColor()
