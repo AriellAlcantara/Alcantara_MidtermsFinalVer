@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        SetRandomColor(); // Set a random color for the enemy on start
     }
 
     void Update()
@@ -42,5 +43,29 @@ public class EnemyScript : MonoBehaviour
             // Call the GameOver method in the GameManager
             gameManager.GameOver();
         }
+    }
+
+    // Set a random color (blue, red, or green) for the enemy
+    private void SetRandomColor()
+    {
+        // Randomly select from blue, red, or green
+        int colorIndex = Random.Range(0, 3);
+
+        Color enemyColor = Color.white; // Default color
+
+        switch (colorIndex)
+        {
+            case 0:
+                enemyColor = Color.blue;
+                break;
+            case 1:
+                enemyColor = Color.red;
+                break;
+            case 2:
+                enemyColor = Color.green;
+                break;
+        }
+
+        GetComponent<Renderer>().material.color = enemyColor; // Update the enemy's color
     }
 }
